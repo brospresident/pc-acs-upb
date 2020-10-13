@@ -2,6 +2,7 @@
 
 void main () {
     int n;
+    
     printf("Introdu un numar n: ");
     scanf("%d", &n);
 

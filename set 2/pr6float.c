@@ -7,9 +7,10 @@ void main () {
     do {
         printf("Introduceti un numar: ");
         scanf("%f", &numar);
-         if (numar < 0) negative ++;
-        else if (numar > 0) pozitive ++;
-    } while (numar != 0);
+        if (numar < 0.0) negative ++;
+        else if (numar > 0.0) pozitive ++;
+    } while (numar != 0.0);
+    
     printf("pozitive = %d\n", pozitive);
     printf("negative = %d", negative);
 }

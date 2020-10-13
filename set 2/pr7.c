@@ -2,11 +2,15 @@
 
 void main () {
     int n;
-    do {
-        printf("Introduceti mai multe numere naturale: ");
-        scanf("%d", &n);
-        printf("Ati introdus numarul %d\n", n);
-    } while (n >= 0);
+    
+    printf("Introduceti un numar: ");
+    scanf("%d", &n);
 
-    printf("Ati introdus un numar negativ.");
+    do {
+        if (n >= 0) break;
+        printf("Ati introdus un numar negativ. Introduceti o valoare pozitiva: ");
+        scanf("%d", &n);
+    } while (n < 0);
+
+    printf("Ati introdus numarul pozitiv: %d.", n);
 }

@@ -2,8 +2,10 @@
 
 void main () {
     int zi;
+    
     printf("Introduceti un numar: ");
     scanf("%d", &zi);
+
     switch (zi) {
         case 1: {
             printf("Luni");

@@ -4,7 +4,9 @@ void main () {
     int n;
     printf("Introduceti un numar: ");
     scanf("%d", &n);
+
     int suma = 0, nr, contor = 0;
+    
     do {
         printf("Introduceti termenul %d din medie: ", contor + 1);
         scanf("%d", &nr); // citim un numar si il adaugam la suma cat timp contor != n, contor creste la fiecare pas

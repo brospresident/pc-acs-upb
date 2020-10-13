@@ -2,8 +2,10 @@
 
 void main () {
     int zi;
+
     printf("Introduceti un numar: ");
     scanf("%d", &zi);
+    
     if (zi == 1) printf("Luni");
     else if (zi == 2) printf("Marti");
     else if (zi == 3) printf("Miercuri");

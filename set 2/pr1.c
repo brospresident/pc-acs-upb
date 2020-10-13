@@ -1,12 +1,29 @@
 #include <stdio.h>
+#include <ctype.h>
 
 void main () {
     char caracter;
+    
     printf("Introduceti un caracter: ");
     scanf("%c", &caracter);
-    if ((caracter >= 32 && caracter <= 47) || (caracter >= 58 && caracter <= 64) || (caracter >= 91 && caracter <= 96) || (caracter >= 123 && caracter <= 126)) 
-        printf("Caracterul %c este caracter special.", caracter);
-    else if (caracter >= 48 && caracter <= 57) printf("Caracterul %c este o cifra.", caracter);
-    else if (caracter >= 65 && caracter <= 90) printf("Caracterul %c este o litera mare.", caracter);
-    else if (caracter >= 97 && caracter <= 122) printf("Caracterul %c este o litera mica.", caracter);
+    
+    if (isdigit(caracter) != 0) printf("Caracterul %c este o cifra.\n", caracter);
+    else if (isalpha(caracter) != 0 && islower(caracter) != 0) printf("Caracterul %c este o litera mica.\n", caracter);
+    else if (isalpha(caracter) != 0 && isupper(caracter) != 0) printf("Caracterul %c este o litera mare.\n", caracter);
+    else printf("Caracterul %c este alt caracter.", caracter);
+
+  /*  printf("Verificare functie isdigit('2'): %d\n", isdigit('2'));
+    printf("Verificare functie isdigit('a'): %d\n", isdigit('a'));
+
+    printf("Verificare functie isalpha('a'): %d\n", isalpha('a'));
+    printf("Verificare functie isalpha('/'): %d\n", isalpha('/'));
+
+    printf("Verificare functie islower('a'): %d\n", islower('a'));
+    printf("Verificare functie islower('/'): %d\n", islower('/'));
+
+    printf("Verificare functie isupper('A'): %d\n", isupper('A'));
+    printf("Verificare functie isupper('a'): %d\n", isupper('a'));*/
+
+    // >= <= == > < != || 
+
 }
