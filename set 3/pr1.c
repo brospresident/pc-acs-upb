@@ -5,7 +5,7 @@ void main () {
     int n;
     printf("Introdu numarul de elemente: ");
     scanf("%d", &n);
-    int v[n];
+    int v[20];
 
     for (int i = 0; i < n; ++i) {
         printf("v[%d]=", i);

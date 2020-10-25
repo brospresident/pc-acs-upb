@@ -4,7 +4,7 @@ void main () {
     int n;
     printf("Introdu numarul de elemente: ");
     scanf("%d", &n);
-    int v[100], im = 0, p = 0, pare[n], impare[n];
+    int v[100], im = 0, p = 0, pare[50], impare[50];
 
     for (int i = 0; i < n; ++i) {
         printf("v[%d]=", i);

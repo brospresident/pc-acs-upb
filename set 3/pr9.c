@@ -29,6 +29,7 @@ void main () {
         A[i][c1 - 1] = A[i][c2 - 1];
         A[i][c2 - 1] = temp;
     }
+    
     /* Am parcurs doar liniile din matrice deoarece indicii coloanelor ii stiam deja(c1, c2) si am folosit c1 - 1, respectiv c2 - 1 deoarece
        in input vom folosi, de exemplu c1 = 3 si c2 = 1 astfel aratam ca vrem sa interschimbam elementele de pe coloana 3 cu cele de pe coloana 1,
        care au de fapt indicii 2 si 0 in matrice atunci cand parcurgem cu for.
