@@ -43,6 +43,20 @@ void main () {
         }
     }
 
+    /*
+        Am parcurs liniile vectorului din 2 in 2 pentru a verifica doar liniile pare, apoi am folosit bubble sort pe coloane doar pentru elementele care erau pare
+        Cand gaseam un element par ii salvam pozitia pe linie in kVechi iar apoi cautam urmatorul element par iar in cazul in care primul era > decat al doilea le interschimbam
+        input folosit:
+        4 3 2
+        4 5 6
+        6 2 12
+
+        output:
+        2 3 4
+        4 5 6
+        2 6 12
+    */
+
     printf("Matricea dupa ordonarea elementelor pare de pe linie para: \n");
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
