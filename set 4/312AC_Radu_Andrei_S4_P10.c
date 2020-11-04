@@ -7,7 +7,7 @@ void main () {
     scanf("%d", &n);
 
     printf("Dati numarul de elemente din vectorul de pozitii: ");
-    scanf("%d", &n);
+    scanf("%d", &p);
 
     for (int i = 0; i < n; ++i) {
         printf("vector[%d] = ", i);
