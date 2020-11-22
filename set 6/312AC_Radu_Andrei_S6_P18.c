@@ -68,7 +68,7 @@ void main () {
             printf("%d ", primulVector[i]);
         }
     }
-    else{
+    else {
         for (int i = 0; i < n1 + n2; ++i) {
             printf("%d ", alDoileaVector[i]);
         }
