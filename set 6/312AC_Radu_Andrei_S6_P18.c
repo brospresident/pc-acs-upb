@@ -73,4 +73,7 @@ void main () {
             printf("%d ", alDoileaVector[i]);
         }
     }
+
+    free(primulVector);
+    free(alDoileaVector);
 }
