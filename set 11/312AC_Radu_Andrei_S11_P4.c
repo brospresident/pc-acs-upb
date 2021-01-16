@@ -14,7 +14,7 @@ typedef struct persoana {
     char culoareOchi[15];
 } Persoana;
 
-void scrieFisier(FILE* fisier, Persoana* persoane, int final) {
+void scrieFisier(FILE* fisier, Persoana* persoane, int final) { // scrie vectorul de persoane in fisier
     for (int i = 0; i < final; ++i) {
         fprintf(fisier, "Nume: %s\n", persoane[i].nume);
         fprintf(fisier, "Prenume: %s\n", persoane[i].prenume);
@@ -27,7 +27,7 @@ void scrieFisier(FILE* fisier, Persoana* persoane, int final) {
     }
 }
 
-void citestePersoane(Persoana* persoane, int nrPersoane, int* existente) {
+void citestePersoane(Persoana* persoane, int nrPersoane, int* existente) { // citeste persoane in vectorul precizat
     if (*existente + nrPersoane > 1000) {
         printf("Limita de persoane a fost depasita!");
         return;
@@ -60,7 +60,7 @@ void citestePersoane(Persoana* persoane, int nrPersoane, int* existente) {
     *existente += nrPersoane;
 }
 
-void afiseazaFisier(FILE* fisier) {
+void afiseazaFisier(FILE* fisier) { // afiseaza tot fisierul
     fseek(fisier, 0, SEEK_SET);
     char propozitie[1000];
     while (fgets(propozitie, 1000, fisier)) {
@@ -68,7 +68,7 @@ void afiseazaFisier(FILE* fisier) {
     }
 }
 
-void afiseazaPersoana(FILE* fisier, char* nume) {
+void afiseazaPersoana(FILE* fisier, char* nume) { // functie care parcurge fisierul si afiseaza toate persoanele care au numele de familie precizat
     fseek(fisier, 0, SEEK_SET);
     char linie[1000];
     while (fgets(linie, 1000, fisier)) {
@@ -124,5 +124,6 @@ void main () {
             }
         }
     }
+    free(vectorPersoane);
     
 }
