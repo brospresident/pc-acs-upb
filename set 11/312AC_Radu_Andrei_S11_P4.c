@@ -14,15 +14,15 @@ typedef struct persoana {
     char culoareOchi[15];
 } Persoana;
 
-void scrieFisier(FILE* fisier, Persoana* persoane, int inceput, int final) {
-    for (int i = inceput; i < final; ++i) {
+void scrieFisier(FILE* fisier, Persoana* persoane, int final) {
+    for (int i = 0; i < final; ++i) {
         fprintf(fisier, "Nume: %s\n", persoane[i].nume);
         fprintf(fisier, "Prenume: %s\n", persoane[i].prenume);
         fprintf(fisier, "Adresa: %s\n", persoane[i].adresa);
         fprintf(fisier, "Sex: %c\n", persoane[i].sex);
-        fprintf(fisier, "Greutate: %.2f", persoane[i].greutate);
-        fprintf(fisier, "Varsta: %d", persoane[i].varsta);
-        fprintf(fisier, "Par: %s", persoane[i].culoarePar);
+        fprintf(fisier, "Greutate: %.2f\n", persoane[i].greutate);
+        fprintf(fisier, "Varsta: %d\n", persoane[i].varsta);
+        fprintf(fisier, "Par: %s\n", persoane[i].culoarePar);
         fprintf(fisier, "Ochi: %s\n", persoane[i].culoareOchi);
     }
 }
@@ -43,13 +43,13 @@ void citestePersoane(Persoana* persoane, int nrPersoane, int* existente) {
         scanf(" %[^\n]s", persoane[i].adresa);
 
         printf("Sex: ");
-        scanf(" %c", persoane[i].sex);
+        scanf(" %c", &persoane[i].sex);
 
         printf("Greutate: ");
-        scanf(" %lf", persoane[i].greutate);
+        scanf(" %f", &persoane[i].greutate);
 
         printf("Varsta: ");
-        scanf(" %d", persoane[i].varsta);
+        scanf(" %d", &persoane[i].varsta);
 
         printf("Par: ");
         scanf(" %[^\n]s", persoane[i].culoarePar);
@@ -58,6 +58,29 @@ void citestePersoane(Persoana* persoane, int nrPersoane, int* existente) {
         scanf(" %[^\n]s", persoane[i].culoareOchi);
     }
     *existente += nrPersoane;
+}
+
+void afiseazaFisier(FILE* fisier) {
+    fseek(fisier, 0, SEEK_SET);
+    char propozitie[1000];
+    while (fgets(propozitie, 1000, fisier)) {
+        printf("%s", propozitie);
+    }
+}
+
+void afiseazaPersoana(FILE* fisier, char* nume) {
+    fseek(fisier, 0, SEEK_SET);
+    char linie[1000];
+    while (fgets(linie, 1000, fisier)) {
+        char* pozitie = strstr(linie, nume);
+        if (pozitie != NULL) {
+            printf("%s", linie);
+            for (int i = 0; i < 7; ++i) {
+                fgets(linie, 1000, fisier);
+                printf("%s", linie);
+            }
+        }
+    }
 }
 
 void main () {
@@ -88,7 +111,17 @@ void main () {
             printf("Cate persoane vrei sa adaugi? ");
             scanf(" %d", &nr);
             citestePersoane(vectorPersoane, nr, &existente);
-            
+            scrieFisier(fisier, vectorPersoane, existente);
+        }
+        else if (strcmp(opt, "nume") == 0) {
+            char nume[50];
+            scanf(" %[^\n]s", nume);
+            if (strcmp(nume, "oricare") == 0) {
+                afiseazaFisier(fisier);
+            }
+            else {
+                afiseazaPersoana(fisier, nume);
+            }
         }
     }
     
