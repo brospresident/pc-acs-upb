@@ -10,6 +10,12 @@ typedef struct client {
     int codClient;
 } Client;
 
+void afiseaza(Client* list, int len) {
+    for (int i = 0; i < len; ++i) {
+        printf("%s\n", list[i].nume);
+    }
+}
+
 int codClientMaxim(Client* lista, int intrari) {
     int max = INT_MIN;
 
@@ -40,36 +46,35 @@ void unesteClientii(Client* lista1, int clienti1, Client* lista2, int clienti2, 
     sorteazaClientiAlfabetic(lista1, clienti1);
     sorteazaClientiAlfabetic(lista2, clienti2);
 
+    afiseaza(lista1, clienti1);
+    printf("\n\n");
+    afiseaza(lista2, clienti2);
+
     int comuni = 0, prima = 0, aDoua = 0;
 
-    int maiMic = clienti1 < clienti2 ? clienti1 : clienti2;
-
-    for (int i = 0; i < maiMic; ++i) {
-        if (strcmp(lista1[i].nume, lista2[i].nume) == 0) {
-            clientiComuni[comuni].debit = lista1[i].debit + lista2[i].debit;
-            clientiComuni[comuni].credit = lista1[i].credit + lista2[i].credit;
-            clientiComuni[comuni].codClient = lista2[i].codClient;
-            strcpy(clientiComuni[comuni].nume, lista1[i].nume);
-            comuni++;
-        }
-        else {
-            memcpy(&primaBanca[prima], &lista1[i], sizeof(Client));
-            memcpy(&aDouaBanca[aDoua], &lista2[i], sizeof(Client));
-            prima++;
-            aDoua++;
+    for (int i = 0; i < clienti1; ++i) {
+        for (int j = 0; j < clienti2; ++j) {
+            if (strcmp(lista1[i].nume, lista2[j].nume) == 0) {
+                memcpy(&clientiComuni[comuni], &lista1[i], sizeof(Client));
+                clientiComuni[comuni].codClient = lista2[j].codClient;
+                comuni++;
+            }
         }
     }
 
-    if (maiMic == clienti1) {
-        for (int i = maiMic; i < clienti2; ++i) {
-            memcpy(&aDouaBanca[aDoua], &lista2[i], sizeof(Client));
-            aDoua++;
-        }
-    }
-    else {
-        for (int i = maiMic; i < clienti1; ++i) {
+    for (int i = 0; i < clienti1; ++i) {
+        for (int j = 0; j < comuni; ++j) {
+            if (strcmp(lista1[i].nume, clientiComuni[j].nume) == 0) continue;
             memcpy(&primaBanca[prima], &lista1[i], sizeof(Client));
             prima++;
+        }
+    }
+
+    for (int i = 0; i < clienti2; ++i) {
+        for (int j = 0; j < comuni; ++j) {
+            if (strcmp(lista1[i].nume, clientiComuni[j].nume) == 0) continue;
+            memcpy(&aDouaBanca[aDoua], &lista2[i], sizeof(Client));
+            aDoua++;
         }
     }
 
@@ -77,6 +82,7 @@ void unesteClientii(Client* lista1, int clienti1, Client* lista2, int clienti2, 
     *clientiADoua = aDoua;
     *nrComuni = comuni;
 }
+
 
 void citesteFisier(FILE* fis, Client* lista, int* persoane) {
     fseek(fis, 0, SEEK_SET);
@@ -87,22 +93,23 @@ void citesteFisier(FILE* fis, Client* lista, int* persoane) {
 
     while (fgets(linie, 128, fis)) {
         strcpy(lista[contor].nume, linie);
+        lista[contor].nume[strlen(lista[contor].nume) - 1] = 0;
+
         fgets(linie, 128, fis);
+        linie[strlen(linie) - 1] = 0;
         lista[contor].debit = atof(linie);
+
         fgets(linie, 128, fis);
+        linie[strlen(linie) - 1] = 0;
         lista[contor].credit = atof(linie);
+
         fgets(linie, 128, fis);
         lista[contor].codClient = atoi(linie);
+
         contor++;
     }
 
     *persoane = contor;
-}
-
-void afiseaza(Client* list, int len) {
-    for (int i = 0; i < len; ++i) {
-        printf("%s\n", list[i].nume);
-    }
 }
 
 void main () {
@@ -117,13 +124,13 @@ void main () {
     Client* banca1 = (Client*)malloc(1000);
     Client* banca2 = (Client*)malloc(1000);
 
-    int clientiBanca1, clientiBanca2;
+    int clientiBanca1 = 0, clientiBanca2 = 0;
 
     citesteFisier(fisier1, banca1, &clientiBanca1);
     citesteFisier(fisier2, banca2, &clientiBanca2);
 
-    banca1 = realloc(banca1, clientiBanca1);
-    banca2 = realloc(banca2, clientiBanca2);
+    banca1 = realloc(banca1, clientiBanca1 + 1);
+    banca2 = realloc(banca2, clientiBanca2 + 1);
 
     int cmax = codClientMaxim(banca1, clientiBanca1);
 
@@ -158,7 +165,7 @@ void main () {
         fwrite(primaBanca, sizeof(Client) * prima, 1, fisierUnit);
     }
 
-    printf("Numarul total de clienti este %d.", prima + aDoua - clientiComuni);
+    printf("Numarul total de clienti este %d.", prima + aDoua + clientiComuni);
 
     fclose(fisier1);
     fclose(fisier2); 

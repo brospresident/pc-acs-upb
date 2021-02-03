@@ -1,0 +1,4 @@
+nume prenume
+debit
+credit
+cod client
